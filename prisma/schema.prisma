@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String    @id @default(uuid())
+  email      String    @unique
+  password   String
+  name       String
+  birthDate  DateTime
+  facebookId String?   @unique
+  profiles   Profile[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Profile {
+  id             Int              @id @default(autoincrement())
+  name           String
+  userId         String
+  user           User             @relation(fields: [userId], references: [id])
+  watchlist      Watchlist[]
+  watchedMovies  WatchedMovie[]
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  ScheduledMovie ScheduledMovie[]
+
+  @@unique([userId, name])
+}
+
+model Watchlist {
+  id          Int       @id @default(autoincrement())
+  profileId   Int
+  profile     Profile   @relation(fields: [profileId], references: [id])
+  tmdbId      Int
+  title       String
+  posterPath  String?
+  releaseDate DateTime?
+  createdAt   DateTime  @default(now())
+}
+
+model WatchedMovie {
+  id          Int       @id @default(autoincrement())
+  profileId   Int
+  profile     Profile   @relation(fields: [profileId], references: [id])
+  tmdbId      Int
+  title       String
+  posterPath  String?
+  releaseDate DateTime?
+  watchedAt   DateTime  @default(now())
+  createdAt   DateTime  @default(now())
+}
+
+model ScheduledMovie {
+  id           Int       @id @default(autoincrement())
+  profileId    Int
+  profile      Profile   @relation(fields: [profileId], references: [id])
+  tmdbId       Int
+  title        String
+  posterPath   String?
+  releaseDate  DateTime?
+  scheduledFor DateTime
+  createdAt    DateTime  @default(now())
+}
