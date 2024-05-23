@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  jera-movies-pg:
+    image: bitnami/postgresql
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRESQL_USER=docker
+      - POSTGRESQL_PASSWORD=docker
+      - POSTGRESQL_DB=jeramovies
+      - PGDATA=/data/postgres
+    volumes:
+      - ./data/pg:/data/postgres
