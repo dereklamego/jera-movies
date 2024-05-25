@@ -39,4 +39,27 @@ export class TmdbService {
       }
     }
   }
+  async searchMoviesByName(searchTerm: string) {
+    const url = `${this.apiUrl}/search/movie?query=${encodeURIComponent(searchTerm)}`;
+    console.log('URL:', url); // Adicionando log para verificar a URL
+    console.log('Search Term:', searchTerm); // Adicionando log para verificar o termo de busca
+    try {
+      const response = await firstValueFrom(
+        this.httpService.get(url, { headers: this.headers }),
+      );
+      return response.data;
+    } catch (error: any) {
+      console.error('Error:', error); // Adicionando log para verificar erros
+      // Verifica se é um erro de status HTTP
+      if (error.response && error.response.status) {
+        throw new HttpException(error.response.data, error.response.status);
+      } else {
+        // Se não for um erro de status HTTP, lança um erro interno do servidor
+        throw new HttpException('Erro interno do servidor', HttpStatus.INTERNAL_SERVER_ERROR);
+      }
+    }
+  }
+
+
+
 }
