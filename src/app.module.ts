@@ -5,7 +5,7 @@ import { envSchema } from 'src/env'
 import { AuthModule } from './auth/auth.module'
 import { CreateAccountController } from './controllers/create-account.controller'
 import { AuthenticateController } from './controllers/authenticate.controller'
-import { CreateQuestionController } from './controllers/create-question.controller'
+import { CreateProfileController } from './controllers/create-profile.controller'
 import { MoviesModule } from './movies/movies.module'
 
 @Module({
@@ -20,8 +20,8 @@ import { MoviesModule } from './movies/movies.module'
   controllers: [
     CreateAccountController,
     AuthenticateController,
-    CreateQuestionController,
+    CreateProfileController,
   ],
   providers: [PrismaService],
 })
-export class AppModule {}
+export class AppModule { }
