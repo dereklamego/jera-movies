@@ -7,6 +7,8 @@ import { CreateAccountController } from './controllers/create-account.controller
 import { AuthenticateController } from './controllers/authenticate.controller'
 import { CreateProfileController } from './controllers/create-profile.controller'
 import { MoviesModule } from './movies/movies.module'
+import { FetchProfilesController } from './controllers/fetch-profiles.controller'
+import { ToWatchMovieController } from './controllers/to-watch-movies.controller'
 
 @Module({
   imports: [
@@ -21,6 +23,8 @@ import { MoviesModule } from './movies/movies.module'
     CreateAccountController,
     AuthenticateController,
     CreateProfileController,
+    FetchProfilesController,
+    ToWatchMovieController
   ],
   providers: [PrismaService],
 })

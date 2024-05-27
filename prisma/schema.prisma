@@ -39,28 +39,27 @@ model Profile {
   @@unique([userId, name])
 }
 
-model Watchlist {
-  id          Int       @id @default(autoincrement())
-  profileId   Int
-  profile     Profile   @relation(fields: [profileId], references: [id])
-  tmdbId      Int       @unique
-  createdAt   DateTime  @default(now())
+model Watchedlist {
+  id        Int      @id @default(autoincrement())
+  profileId Int
+  profile   Profile  @relation(fields: [profileId], references: [id])
+  movieId   Int      @unique
+  createdAt DateTime @default(now())
 }
 
-model WatchedMovie {
-  id          Int       @id @default(autoincrement())
-  profileId   Int
-  profile     Profile   @relation(fields: [profileId], references: [id])
-  tmdbId      Int       @unique
-  watchedAt   DateTime  @default(now())
-  createdAt   DateTime  @default(now())
+model ToWatchMovie {
+  id        Int      @id @default(autoincrement())
+  profileId Int
+  profile   Profile  @relation(fields: [profileId], references: [id])
+  movieId   Int      @unique
+  
 }
 
 model ScheduledMovie {
-  id           Int       @id @default(autoincrement())
+  id           Int      @id @default(autoincrement())
   profileId    Int
-  profile      Profile   @relation(fields: [profileId], references: [id])
-  tmdbId       Int       @unique
+  profile      Profile  @relation(fields: [profileId], references: [id])
+  movieId      Int      @unique
   scheduledFor DateTime
-  createdAt    DateTime  @default(now())
+  createdAt    DateTime @default(now())
 }
